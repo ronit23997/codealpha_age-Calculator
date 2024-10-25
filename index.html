@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 23px;
+            text-align: center;
+        }
+        input {
+            margin: 23px;
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Age Calculator</h1>
+    <form id="ageForm">
+        <label for="dob">Enter your date of birth:</label><br>
+        <input type="date" id="dob" required>
+        <br>
+        <input type="submit" value="Calculate Age">
+    </form>
+    <h2 id="result"></h2>
+
+    <script>
+        document.getElementById('ageForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const dobInput = document.getElementById('dob').value;
+            const dob = new Date(dobInput);
+            const today = new Date();
+
+            // Calculate age
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDiff = today.getMonth() - dob.getMonth();
+
+            // Adjust age if the birthday hasn't occurred this year yet
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            document.getElementById('result').textContent = `You are ${age} years old.`;
+        });
+    </script>
+</body>
+</html>
